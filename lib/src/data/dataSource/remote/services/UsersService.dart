@@ -52,7 +52,7 @@ class UsersService {
       print('metodo actualizar con imagen');
       // http://172.27.44.141:3000/auth/login
       Uri url = Uri.http( Apiconfig.API_ECOMMERCE, '/users/upload/$id');
-      final request = http.MultipartRequest('POST', url);
+      final request = http.MultipartRequest('PUT', url);
       request.headers['Authorization'] = await token;
       request.files.add(http.MultipartFile(
         'file',

@@ -2,6 +2,8 @@ import 'package:ecommerce_flutter/main.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/client/home/bloc/ClientHomeBloc.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/client/home/bloc/ClientHomeEvent.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/client/home/bloc/ClientHomeState.dart';
+import 'package:ecommerce_flutter/src/presentation/pages/client/home/category/list/ClientCategoryListPage.dart';
+import 'package:ecommerce_flutter/src/presentation/pages/profile/info/ProfileInfoPage.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/roles/RolesPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,6 +20,8 @@ class  ClientHomePageState extends State <ClientHomePage> {
   ClientHomeBloc? _bloc;
 
   List<Widget> pageList = <Widget> [
+    ClientCategoryListPage(),
+    ProfileInfoPage(),
     RolesPage()
   ];   
 
@@ -43,17 +47,34 @@ class  ClientHomePageState extends State <ClientHomePage> {
                   ),
                   )
                 ),
+                
                 ListTile(
-                  title: Text('Roles'),
+                  title: Text('Categorias'),
                   selected: state.pageIndex == 0,
                   onTap: () {
                     _bloc?.add(ChangeDrawerPage(pageIndex: 0));
                     Navigator.pop(context);
                   },
                 ),
+
+                ListTile(
+                  title: Text('Perfil de Usuario'),
+                  selected: state.pageIndex == 1,
+                  onTap: () {
+                    _bloc?.add(ChangeDrawerPage(pageIndex: 1));
+                    Navigator.pop(context);
+                  },
+                ),
+                ListTile(
+                  title: Text('Roles'),
+                  selected: state.pageIndex == 2,
+                  onTap: () {
+                    _bloc?.add(ChangeDrawerPage(pageIndex: 2));
+                    Navigator.pop(context);
+                  },
+                ),
                 ListTile(
                   title: Text('Cerrar Sesión'),
-                  selected: state.pageIndex == 0,
                   onTap: () {
                     _bloc?.add(Logout());
                     Navigator.pushAndRemoveUntil(

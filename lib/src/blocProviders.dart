@@ -17,6 +17,7 @@ import 'package:ecommerce_flutter/src/presentation/pages/auth/login/bloc/LoginEv
 import 'package:ecommerce_flutter/src/presentation/pages/auth/register/bloc/RegisterBloc.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/auth/register/bloc/RegisterEvent.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/client/home/bloc/ClientHomeBloc.dart';
+import 'package:ecommerce_flutter/src/presentation/pages/client/home/category/list/bloc/ClientCategoryListBloc.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/profile/info/bloc/ProfileInfoBloc.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/profile/info/bloc/ProfileInfoEvent.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/profile/update/bloc/ProfileUpdateBloc.dart';
@@ -39,4 +40,5 @@ List<BlocProvider> blocProviders = [
   BlocProvider<AdminProductListBloc>(create:(context)=> AdminProductListBloc(locator<ProductsUseCases>())),
   BlocProvider<AdminProductUpdateBloc>(create:(context)=> AdminProductUpdateBloc(locator<ProductsUseCases>())),
   BlocProvider<ClientHomeBloc>(create: (context) => ClientHomeBloc(locator<AuthUseCases>())),
+  BlocProvider<ClientCategoryListBloc>(create:(context)=> ClientCategoryListBloc(locator<CategoriesUseCases>())),
 ];
