@@ -30,16 +30,6 @@ class _ClientCategoryListPageState extends State<ClientCategoryListPage> {
   Widget build(BuildContext context) {
     _bloc=BlocProvider.of<ClientCategoryListBloc>(context);
     return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.pushNamed(context, 'admin/category/create');
-          },
-          backgroundColor: Colors.black,
-          child: Icon(
-            Icons.add,
-            color: Colors.white,
-          ),
-        ),
         body: BlocListener<ClientCategoryListBloc, ClientCategoryListState>(
           listener: (context, state) {
            final responseState = state.response;

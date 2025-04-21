@@ -12,7 +12,7 @@ class ClientCategoryListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        //Navigator.pushNamed(context, 'client/product/list', arguments: category);
+        Navigator.pushNamed(context, 'client/product/list', arguments: category);
       },
       child: Container(
         margin: EdgeInsets.only(top: 10, left: 15, right: 15),
