@@ -15,13 +15,14 @@ class ClientProductListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Navigator.pushNamed(context, 'admin/product/list', arguments: category);
+        Navigator.pushNamed(context, 'client/product/detail', arguments: product);
       },
       child: ListTile(
         trailing: product != null
             ? Container(
               width: 70,
-              child: product!.image1!.isNotEmpty ? FadeInImage.assetNetwork(
+              child: product!.image1!.isNotEmpty ? 
+              FadeInImage.assetNetwork(
                   placeholder: 'assets/img/user_image.png',
                   image: product!.image1!,
                   fit: BoxFit.cover,

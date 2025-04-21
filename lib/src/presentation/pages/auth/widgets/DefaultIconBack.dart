@@ -4,10 +4,12 @@ class DefaultIconBack extends StatelessWidget {
 
 double left;
 double top;
+Color color;
 
   DefaultIconBack({
     required this.left,
-    required this.top
+    required this.top,
+    this.color = Colors.white,
   });
 
   @override
@@ -19,7 +21,7 @@ double top;
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(Icons.arrow_back_ios, size: 35, color: Colors.white)),
+          icon: Icon(Icons.arrow_back_ios, size: 35, color: color)),
     );
   }
 }
