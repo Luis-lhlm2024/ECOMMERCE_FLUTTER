@@ -1,14 +1,19 @@
 import 'package:ecommerce_flutter/src/domain/models/Product.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/auth/widgets/DefaultButton.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/auth/widgets/DefaultIconBack.dart';
+import 'package:ecommerce_flutter/src/presentation/pages/client/product/detail/bloc/ClientProductDetailBloc.dart';
+import 'package:ecommerce_flutter/src/presentation/pages/client/product/detail/bloc/ClientProductDetailEvent.dart';
+import 'package:ecommerce_flutter/src/presentation/pages/client/product/detail/bloc/ClientProductDetailState.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 
 class ClientProductDetailContent extends StatelessWidget {
 
   Product? product;
+  ClientProductDetailBloc? bloc;
+  ClientProductDetailState? state;
 
-  ClientProductDetailContent(this.product);
+  ClientProductDetailContent(this.bloc, this.state, this.product);
 
 
   @override
@@ -39,21 +44,26 @@ class ClientProductDetailContent extends StatelessWidget {
       padding: EdgeInsets.only(top: 15, bottom: 20, left: 30, right: 30),
       child: Row(
         children: [
-          Container(
-            width: 45,
-            height: 55,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: Colors.grey[400],
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(25),
-                bottomLeft: Radius.circular(25),
-              )
-            ),
-            child: Text(
-              '-',
-              style: TextStyle(
-                fontSize: 25
+          GestureDetector(
+            onTap: () {
+              bloc?.add(SubtractItem());
+            },
+            child: Container(
+              width: 45,
+              height: 55,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Colors.grey[400],
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(25),
+                  bottomLeft: Radius.circular(25),
+                )
+              ),
+              child: Text(
+                '-',
+                style: TextStyle(
+                  fontSize: 25
+                ),
               ),
             ),
           ),
@@ -65,36 +75,44 @@ class ClientProductDetailContent extends StatelessWidget {
               color: Colors.grey[400],
             ),
             child: Text(
-              '0',
+              state!.quantity.toString(),
               style: TextStyle(
                 fontSize: 25
               ),
             ),
           ),
-          Container(
-            width: 45,
-            height: 55,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: Colors.grey[400],
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(25),
-                bottomRight: Radius.circular(25),
-              )
-            ),
-            child: Text(
-              '+',
-              style: TextStyle(
-                fontSize: 25
+          GestureDetector(
+            onTap: () {
+              bloc?.add(AddItem());
+            },
+            child: Container(
+              width: 60,
+              height: 55,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Colors.grey[400],
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(25),
+                  bottomRight: Radius.circular(25),
+                )
+              ),
+              child: Text(
+                '+',
+                style: TextStyle(
+                  fontSize: 25
+                ),
               ),
             ),
           ),
           Spacer(),
           Container(
             width: 200,
+            height: 80,
             child: DefaultButton(
               text: 'AGREGAR', 
-              onPressed: () {}
+              onPressed: () {
+                bloc?.add(AddProductToShoppingBag(product: product!));
+              }
             ),
           )
         ],

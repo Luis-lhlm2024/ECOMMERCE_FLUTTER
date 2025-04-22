@@ -12,6 +12,7 @@ class Product {
     String? image2;
     int idCategory;
     double price;
+    int? quantity;
 
     Product({
         this.id,
@@ -21,6 +22,7 @@ class Product {
         this.image2,
         required this.idCategory,
         required this.price,
+        this.quantity,
     });
 
     static List<Product>fromJsonList(List<dynamic>jsonList){
@@ -50,6 +52,7 @@ class Product {
               : json["price"] is int
                 ? (json["price"] as int).toDouble()
                 : json["price"],
+        quantity: json["quantity"]
     );
 
     Map<String, dynamic> toJson() => {
@@ -60,5 +63,6 @@ class Product {
         "image2": image2,
         "id_category": idCategory,
         "price": price,
+        "quantity": quantity
     };
 }

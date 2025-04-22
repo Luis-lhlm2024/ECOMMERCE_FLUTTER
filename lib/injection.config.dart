@@ -24,6 +24,8 @@ import 'package:ecommerce_flutter/src/data/repository/ProductsRepositoryImpl.dar
 import 'package:ecommerce_flutter/src/data/repository/UsersRepositoryImpl.dart'
     as _i395;
 import 'package:ecommerce_flutter/src/di/AppModule.dart' as _i987;
+import 'package:ecommerce_flutter/src/domain/models/ShoppingBagRepository.dart'
+    as _i470;
 import 'package:ecommerce_flutter/src/domain/repository/AuthRepository.dart'
     as _i148;
 import 'package:ecommerce_flutter/src/domain/repository/CategoriesRepository.dart'
@@ -34,6 +36,8 @@ import 'package:ecommerce_flutter/src/domain/useCases/categories/CategoriesUseCa
     as _i578;
 import 'package:ecommerce_flutter/src/domain/useCases/Products/ProductsUseCases.dart'
     as _i467;
+import 'package:ecommerce_flutter/src/domain/useCases/ShoppingBag/ShoppingBagUseCases.dart'
+    as _i356;
 import 'package:ecommerce_flutter/src/domain/useCases/users/UsersUseCases.dart'
     as _i525;
 import 'package:get_it/get_it.dart' as _i174;
@@ -62,10 +66,13 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i179.CategoriesRepository>(
         () => appModule.categoriesRepository);
     gh.factory<_i71.ProductsRepositoryImpl>(() => appModule.productsRepository);
+    gh.factory<_i470.ShoppingBagRepository>(
+        () => appModule.shoppingBagRepository);
     gh.factory<_i322.AuthUseCases>(() => appModule.authUseCases);
     gh.factory<_i525.UsersUseCases>(() => appModule.usersUseCases);
     gh.factory<_i578.CategoriesUseCases>(() => appModule.categoriesUseCases);
     gh.factory<_i467.ProductsUseCases>(() => appModule.productsUseCases);
+    gh.factory<_i356.ShoppingBagUseCases>(() => appModule.shoppingBagUseCases);
     return this;
   }
 }
