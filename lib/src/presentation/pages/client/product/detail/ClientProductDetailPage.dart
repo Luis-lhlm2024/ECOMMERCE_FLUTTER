@@ -23,8 +23,14 @@ class _ClientProductDetailPageState extends State<ClientProductDetailPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      _bloc?.add(GetProducts());
+      _bloc?.add(GetProducts(product: product!));
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _bloc?.add(ResetState());
   }
 
   @override

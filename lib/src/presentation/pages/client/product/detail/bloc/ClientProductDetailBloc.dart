@@ -13,18 +13,17 @@ class   ClientProductDetailBloc extends Bloc<ClientProductDetailEvent, ClientPro
     on<AddItem>(_onAddItem);
     on<SubtractItem>(_onSubtractItem);
     on<AddProductToShoppingBag>(_onAddProductToShoppingBag);
+    on<ResetState>(_onResetState); 
   }
 
   Future<void> _onGetProducts(GetProducts event, Emitter<ClientProductDetailState> emit) async {
-     try {
       List<Product> products = await shoppingBagUseCases.getProducts.run();
-      products.forEach((p) {
-        print('Shopping Bag: ${p.toJson()}');
-      });
-    } catch (e) {
-      print('Error al obtener productos del carrito: $e');
-    }
-
+      int index = products.indexWhere((p) => p.id == event.product.id);
+      if (index != -1) {
+        emit(
+          state.copyWith(quantity: products[index].quantity)
+        );
+      }
   }
 
   Future<void> _onAddItem(AddItem event, Emitter<ClientProductDetailState> emit) async {
@@ -44,5 +43,11 @@ class   ClientProductDetailBloc extends Bloc<ClientProductDetailEvent, ClientPro
   Future<void> _onAddProductToShoppingBag(AddProductToShoppingBag event, Emitter<ClientProductDetailState> emit) async {
     event.product.quantity = state.quantity;
     shoppingBagUseCases.add.run(event.product);
+  }
+
+  Future<void> _onResetState(ResetState event, Emitter<ClientProductDetailState> emit) async {
+    emit(
+      state.copyWith(quantity: 0)
+    );
   }
 }

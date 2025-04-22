@@ -6,6 +6,7 @@ import 'package:ecommerce_flutter/src/presentation/pages/client/product/detail/b
 import 'package:ecommerce_flutter/src/presentation/pages/client/product/detail/bloc/ClientProductDetailState.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class ClientProductDetailContent extends StatelessWidget {
 
@@ -111,6 +112,7 @@ class ClientProductDetailContent extends StatelessWidget {
             child: DefaultButton(
               text: 'AGREGAR', 
               onPressed: () {
+                Fluttertoast.showToast(msg: 'Se agrego el producto', toastLength: Toast.LENGTH_LONG);
                 bloc?.add(AddProductToShoppingBag(product: product!));
               }
             ),
