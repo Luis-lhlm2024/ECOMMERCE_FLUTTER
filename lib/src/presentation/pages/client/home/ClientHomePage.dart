@@ -29,7 +29,17 @@ class  ClientHomePageState extends State <ClientHomePage> {
   Widget build(BuildContext context) {
     _bloc = BlocProvider.of<ClientHomeBloc>(context);
     return Scaffold(
-      appBar: AppBar(title: Text('Menu')),
+      appBar: AppBar(
+        title: Text('Menu'),
+        actions: [
+          IconButton(onPressed: () {
+            Navigator.pushNamed(context, 'client/shopping_bag');
+          },
+          icon: Icon(
+            Icons.shopping_bag,
+            color: Colors.black,
+          ))
+        ],),
       drawer: BlocBuilder<ClientHomeBloc, ClientHomeState>(
         builder: (context, state) {
           return Drawer(
