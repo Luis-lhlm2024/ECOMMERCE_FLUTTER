@@ -17,6 +17,7 @@ import 'package:ecommerce_flutter/src/presentation/pages/auth/login/bloc/LoginBl
 import 'package:ecommerce_flutter/src/presentation/pages/auth/login/bloc/LoginEvent.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/auth/register/bloc/RegisterBloc.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/auth/register/bloc/RegisterEvent.dart';
+import 'package:ecommerce_flutter/src/presentation/pages/client/ShoppingBag/bloc/ClientShoppingBagBloc.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/client/home/bloc/ClientHomeBloc.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/client/home/category/list/bloc/ClientCategoryListBloc.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/client/product/detail/bloc/ClientProductDetailBloc.dart';
@@ -46,4 +47,5 @@ List<BlocProvider> blocProviders = [
   BlocProvider<ClientCategoryListBloc>(create:(context)=> ClientCategoryListBloc(locator<CategoriesUseCases>())),
   BlocProvider<ClientProductListBloc>(create:(context)=> ClientProductListBloc(locator<ProductsUseCases>())),
   BlocProvider<ClientProductDetailBloc>(create:(context)=> ClientProductDetailBloc(locator<ShoppingBagUseCases>())),
-];
+  BlocProvider<ClientShoppingBagBloc>(create:(context)=> ClientShoppingBagBloc(locator<ShoppingBagUseCases>())),
+  ];

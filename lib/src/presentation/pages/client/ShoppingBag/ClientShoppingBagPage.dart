@@ -1,6 +1,11 @@
 import 'package:ecommerce_flutter/src/presentation/pages/auth/widgets/DefaultButton.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/client/ShoppingBag/ClientShoppingBagItem.dart';
+import 'package:ecommerce_flutter/src/presentation/pages/client/ShoppingBag/bloc/ClientShoppingBagBloc.dart';
+import 'package:ecommerce_flutter/src/presentation/pages/client/ShoppingBag/bloc/ClientShoppingBagEvent.dart';
+import 'package:ecommerce_flutter/src/presentation/pages/client/ShoppingBag/bloc/ClientShoppingBagState.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rxdart/transformers.dart';
 
 class ClientShoppingBagPage extends StatefulWidget {
   const ClientShoppingBagPage({super.key});
@@ -9,14 +14,38 @@ class ClientShoppingBagPage extends StatefulWidget {
   State<ClientShoppingBagPage> createState() => _ClientShoppingBagPageState();
 }
 
+ClientShoppingBagBloc? _bloc; 
 class _ClientShoppingBagPageState extends State<ClientShoppingBagPage> {
+
+  ClientShoppingBagBloc? _bloc;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((TimeStamp) {
+      _bloc?.add(GetShoppingBag());
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
+    _bloc = BlocProvider.of<ClientShoppingBagBloc>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('Mi orden'),
       ),
-      body: ClientShoppingBagItem(null),
+      body: BlocBuilder<ClientShoppingBagBloc, ClientShoppingBagState>(
+        builder: (context, state) {
+          return ListView.builder(
+            itemCount: state.products.length,
+            itemBuilder: (context, index) {
+              return ClientShoppingBagItem(_bloc, state, state.products[index]);
+            }
+          );
+          
+        }
+      ),
       bottomNavigationBar: Container(
         height: 100,
         color: Colors.grey[300],
