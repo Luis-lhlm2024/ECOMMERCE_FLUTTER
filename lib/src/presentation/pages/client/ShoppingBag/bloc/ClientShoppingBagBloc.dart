@@ -10,7 +10,11 @@ class ClientShoppingBagBloc extends Bloc<ClientShoppingBagEvent, ClientShoppingB
 
   ClientShoppingBagBloc(this.shoppingBagUseCases): super (ClientShoppingBagState()) {
     on<GetShoppingBag>(_onGetshoppingBag);
-  }
+    on<AddItem>(_onAddItem);
+    on<SubtractItem>(_onSubtractItem);
+    on<RemoveItem>(_onRemoveItem);
+    on<GetTotal>(_onGetTotal);
+   }
 
   Future<void> _onGetshoppingBag(GetShoppingBag event, Emitter<ClientShoppingBagState> emit) async {
 
@@ -18,5 +22,33 @@ class ClientShoppingBagBloc extends Bloc<ClientShoppingBagEvent, ClientShoppingB
     emit(
       state.copyWith(products: products)
     );
+    add(GetTotal());
   }
+
+  Future<void> _onAddItem(AddItem event, Emitter<ClientShoppingBagState> emit) async {
+    event.product.quantity = event.product.quantity! +1;
+    await shoppingBagUseCases.add.run(event.product);
+    add(GetShoppingBag());
+  }
+
+  Future<void> _onSubtractItem(SubtractItem event, Emitter<ClientShoppingBagState> emit) async { 
+    if (event.product.quantity! >1) {
+    event.product.quantity = event.product.quantity! -1;
+    await shoppingBagUseCases.add.run(event.product);
+    add(GetShoppingBag());
+   }
+  }  
+  
+  Future<void> _onRemoveItem(RemoveItem event, Emitter<ClientShoppingBagState> emit) async {
+    await shoppingBagUseCases.deleteItem.run(event.product);
+    add(GetShoppingBag());
+  }
+
+   Future<void> _onGetTotal(GetTotal event, Emitter<ClientShoppingBagState> emit) async {
+    double total = await shoppingBagUseCases.getTotal.run();
+    emit (
+      state.copyWith(total: total)
+    );
+  }
+  
 }

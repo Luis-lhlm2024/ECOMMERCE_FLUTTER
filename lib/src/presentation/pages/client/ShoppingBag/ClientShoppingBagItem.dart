@@ -46,7 +46,7 @@ class ClientShoppingBagItem extends StatelessWidget {
       children: [
           GestureDetector(
             onTap: () {
-             // bloc?.add(SubtractItem());
+             bloc?.add(SubtractItem(product: product!));
             },
             child: Container(
               width: 40,
@@ -83,7 +83,7 @@ class ClientShoppingBagItem extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-             // bloc?.add(AddItem());
+             bloc?.add(AddItem(product: product!));
             },
             child: Container(
               width: 40,
@@ -123,7 +123,9 @@ class ClientShoppingBagItem extends StatelessWidget {
 
   Widget _iconRemove() {
     return IconButton(
-      onPressed: () {},
+      onPressed: () {
+        bloc?.add(RemoveItem(product: product!));
+      },
       icon: Icon(
         Icons.delete,
         color: Colors.red,

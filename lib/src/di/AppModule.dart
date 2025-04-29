@@ -23,6 +23,7 @@ import 'package:ecommerce_flutter/src/domain/useCases/ShoppingBag/AddShoppingBag
 import 'package:ecommerce_flutter/src/domain/useCases/ShoppingBag/DeleteItemShoppingBagUseCase.dart';
 import 'package:ecommerce_flutter/src/domain/useCases/ShoppingBag/DeleteShoppingBagUseCase.dart';
 import 'package:ecommerce_flutter/src/domain/useCases/ShoppingBag/GetProductsShoppingBagUseCase.dart';
+import 'package:ecommerce_flutter/src/domain/useCases/ShoppingBag/GetTotalShoppingBagUseCase.dart';
 import 'package:ecommerce_flutter/src/domain/useCases/ShoppingBag/ShoppingBagUseCases.dart';
 import 'package:ecommerce_flutter/src/domain/useCases/auth/AuthUseCases.dart';
 import 'package:ecommerce_flutter/src/domain/useCases/auth/GetUserSessionUseCase.dart';
@@ -39,8 +40,6 @@ import 'package:ecommerce_flutter/src/domain/useCases/users/UpdateUserUseCase.da
 import 'package:ecommerce_flutter/src/domain/useCases/users/UsersUseCases.dart';
 
 import 'package:injectable/injectable.dart';
-
-import '../domain/useCases/ShoppingBag/ShoppingBagUseCases.dart';
 
 @module
 abstract class AppModule {
@@ -114,7 +113,7 @@ abstract class AppModule {
   ProductsUseCases get productsUseCases => ProductsUseCases (
     create: CreateProductUseCase(productsRepository),
     getProductsByCategory: GetProductsByCategoryUseCase(productsRepository),
-    update: UpdarteProductUseCase(productsRepository),
+    update: UpdateProductUseCase(productsRepository),
     delete: DeleteProductUseCase(productsRepository),     
   );
 
@@ -123,7 +122,8 @@ abstract class AppModule {
     add: AddShoppingBagUseCase(shoppingBagRepository),
     getProducts: GetProductsShoppingBagUseCase(shoppingBagRepository),
     deleteItem: DeleteItemShoppingBagUseCase(shoppingBagRepository),
-    deleteShoppingBag: deleteShoppingBagUseCase(shoppingBagRepository),
+    deleteShoppingBag: DeleteShoppingBagUseCase(shoppingBagRepository),
+    getTotal: GetTotalShoppingBagUseCase(shoppingBagRepository),
   );
 
 }

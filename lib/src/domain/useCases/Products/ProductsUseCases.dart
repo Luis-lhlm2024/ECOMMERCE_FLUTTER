@@ -7,7 +7,7 @@ class ProductsUseCases {
 
   CreateProductUseCase create;
   GetProductsByCategoryUseCase getProductsByCategory;
-  UpdarteProductUseCase update;
+  UpdateProductUseCase update;
   DeleteProductUseCase delete;
 
   ProductsUseCases({
