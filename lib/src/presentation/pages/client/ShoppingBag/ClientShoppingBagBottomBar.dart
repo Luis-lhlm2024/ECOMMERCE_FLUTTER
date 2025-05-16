@@ -33,7 +33,8 @@ class ClientShoppingBagBottomBar extends StatelessWidget {
                 width: 230,
                 child: DefaultButton(
                   text: 'CONFIRMAR ORDEN',
-                  onPressed: () {}
+                  onPressed: () { Navigator.pushNamed(context, 'client/address/list');
+                }
                 ),
               )
               ],

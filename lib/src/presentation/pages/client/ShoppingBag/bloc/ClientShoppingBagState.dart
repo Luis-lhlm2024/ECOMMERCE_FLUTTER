@@ -9,7 +9,7 @@ class ClientShoppingBagState extends Equatable {
 
   ClientShoppingBagState({
     this.products = const [],
-    this.total = 0
+    this.total = 0 
   });
 
   ClientShoppingBagState copyWith ({

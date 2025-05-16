@@ -52,6 +52,10 @@ class _RegisterPageState extends State<RegisterPage> {
                 msg: 'Registro exitoso',
                 toastLength: Toast.LENGTH_LONG
               );
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+              Navigator.pushReplacementNamed(context, 'client/address/list');
+              });
+
             }
           },
           child: BlocBuilder<RegisterBloc, RegisterState>(

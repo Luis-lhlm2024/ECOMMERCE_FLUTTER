@@ -18,10 +18,7 @@ class DefaultButton extends StatelessWidget {
       height: 55,
       margin: EdgeInsets.only(left: 25, right: 25, top: 15),
       child: ElevatedButton(
-        onPressed: () {
-          onPressed();
-          Navigator.pushNamed(context, 'register');
-        },
+        onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: color),
         child: Text(
