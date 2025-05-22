@@ -1,4 +1,10 @@
+import 'package:ecommerce_flutter/src/presentation/pages/auth/widgets/DefaultIconBack.dart';
+import 'package:ecommerce_flutter/src/presentation/pages/auth/widgets/DefaultTextField.dart';
+import 'package:ecommerce_flutter/src/presentation/pages/client/address/create/bloc/ClientAddressCreateBloc.dart';
+import 'package:ecommerce_flutter/src/presentation/pages/client/address/create/bloc/ClientAddressCreateContent.dart';
+import 'package:ecommerce_flutter/src/presentation/pages/client/address/create/bloc/ClientAddressCreateState.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ClientAddressCreatePage extends StatefulWidget {
   const ClientAddressCreatePage({super.key});
@@ -8,10 +14,33 @@ class ClientAddressCreatePage extends StatefulWidget {
 }
 
 class _ClientAddressCreatePageState extends State<ClientAddressCreatePage> {
+
+  ClientAddressCreateBloc? _bloc;
+
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text('ClientAddressCreatePage'),),
-    );
+    return Scaffold(
+      body: BlocListener<ClientAddressCreateBloc, ClientAddressCreateState>(
+          listener: (context, state) {
+      //   final responseState = state.response;
+      //   if (responseState is Success) {
+      //     context.read<AdminCategoryListBloc>().add(GetCategories());
+      //     _bloc?.add(ResetForm());
+      //     Fluttertoast.showToast(
+      //         msg: 'La Categoría se creó correctamente.',
+      //         toastLength: Toast.LENGTH_LONG);
+      //   } else if (responseState is Error) {
+      //     Fluttertoast.showToast(
+      //         msg: responseState.message, toastLength: Toast.LENGTH_LONG);
+      //   }
+       },
+      child: BlocBuilder<ClientAddressCreateBloc, ClientAddressCreateState>(
+        builder: (context, state) {
+          return ClientAddressCreateContent(_bloc, state);
+        },
+      ),
+    ),
+  );
   }
+
 }

@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:ecommerce_flutter/src/data/api/ApiConfig.dart';
 import 'package:ecommerce_flutter/src/data/dataSource/local/SharedPref.dart';
 import 'package:ecommerce_flutter/src/domain/models/AuthResponse.dart';
@@ -24,16 +23,16 @@ class ProductsService {
       
       final request = http.MultipartRequest('POST', url);
       request.headers['Authorization'] = await token;
-      files.forEach ((file) async {
-        request.files.add(http.MultipartFile(
+      for (File file in files) {
+      request.files.add(http.MultipartFile(
         'files[]',
         http.ByteStream(file.openRead().cast()),
         await file.length(),
         filename: basename(file.path),
         contentType: MediaType('image', 'jpg')
-        ));
+      ));
 
-      });
+      }
 
 
       request.fields['name'] = product.name;  
@@ -114,16 +113,16 @@ class ProductsService {
       
       final request = http.MultipartRequest('PUT', url);
       request.headers['Authorization'] = await token;
-      files.forEach ((file) async {
-        request.files.add(http.MultipartFile(
+      for (File file in files) {
+      request.files.add(http.MultipartFile(
         'files[]',
         http.ByteStream(file.openRead().cast()),
         await file.length(),
         filename: basename(file.path),
         contentType: MediaType('image', 'jpg')
-        ));
+      ));
 
-      });
+      }
 
 
       request.fields['name'] = product.name;  
