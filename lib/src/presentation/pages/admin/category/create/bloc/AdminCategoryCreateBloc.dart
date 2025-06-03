@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
-class AdminCategoryCreateBloc
-    extends Bloc<AdminCategoryCreateEvent, AdminCategoryCreateState> {
+class AdminCategoryCreateBloc extends Bloc<AdminCategoryCreateEvent, AdminCategoryCreateState> {
+  
   CategoriesUseCases categoriesUseCases;
 
   AdminCategoryCreateBloc(this.categoriesUseCases)

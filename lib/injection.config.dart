@@ -11,6 +11,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:ecommerce_flutter/src/data/dataSource/local/SharedPref.dart'
     as _i838;
+import 'package:ecommerce_flutter/src/data/dataSource/remote/services/AddressService.dart'
+    as _i993;
 import 'package:ecommerce_flutter/src/data/dataSource/remote/services/AuthService.dart'
     as _i543;
 import 'package:ecommerce_flutter/src/data/dataSource/remote/services/CategoriesService.dart'
@@ -26,10 +28,14 @@ import 'package:ecommerce_flutter/src/data/repository/UsersRepositoryImpl.dart'
 import 'package:ecommerce_flutter/src/di/AppModule.dart' as _i987;
 import 'package:ecommerce_flutter/src/domain/models/ShoppingBagRepository.dart'
     as _i470;
+import 'package:ecommerce_flutter/src/domain/repository/AddressRepository.dart'
+    as _i879;
 import 'package:ecommerce_flutter/src/domain/repository/AuthRepository.dart'
     as _i148;
 import 'package:ecommerce_flutter/src/domain/repository/CategoriesRepository.dart'
     as _i179;
+import 'package:ecommerce_flutter/src/domain/useCases/address/AddressUseCases.dart'
+    as _i265;
 import 'package:ecommerce_flutter/src/domain/useCases/auth/AuthUseCases.dart'
     as _i322;
 import 'package:ecommerce_flutter/src/domain/useCases/categories/CategoriesUseCases.dart'
@@ -61,6 +67,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i226.UsersService>(() => appModule.usersService);
     gh.factory<_i485.CategoriesService>(() => appModule.categoriesService);
     gh.factory<_i463.ProductsService>(() => appModule.productsService);
+    gh.factory<_i993.AddressService>(() => appModule.addressService);
     gh.factory<_i148.AuthRepository>(() => appModule.authRepository);
     gh.factory<_i395.UsersRepositoryImpl>(() => appModule.usersRepository);
     gh.factory<_i179.CategoriesRepository>(
@@ -68,11 +75,13 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i71.ProductsRepositoryImpl>(() => appModule.productsRepository);
     gh.factory<_i470.ShoppingBagRepository>(
         () => appModule.shoppingBagRepository);
+    gh.factory<_i879.AddressRepository>(() => appModule.addressRepository);
     gh.factory<_i322.AuthUseCases>(() => appModule.authUseCases);
     gh.factory<_i525.UsersUseCases>(() => appModule.usersUseCases);
     gh.factory<_i578.CategoriesUseCases>(() => appModule.categoriesUseCases);
     gh.factory<_i467.ProductsUseCases>(() => appModule.productsUseCases);
     gh.factory<_i356.ShoppingBagUseCases>(() => appModule.shoppingBagUseCases);
+    gh.factory<_i265.AddressUseCases>(() => appModule.addressUseCases);
     return this;
   }
 }

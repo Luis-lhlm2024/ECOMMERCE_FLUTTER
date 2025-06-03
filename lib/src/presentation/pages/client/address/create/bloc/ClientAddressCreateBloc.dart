@@ -1,4 +1,8 @@
 
+import 'package:ecommerce_flutter/src/domain/models/AuthResponse.dart';
+import 'package:ecommerce_flutter/src/domain/useCases/address/AddressUseCases.dart';
+import 'package:ecommerce_flutter/src/domain/useCases/auth/AuthUseCases.dart';
+import 'package:ecommerce_flutter/src/domain/utils/Resource.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/client/address/create/bloc/ClientAddressCreateEvent.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/client/address/create/bloc/ClientAddressCreateState.dart';
 import 'package:ecommerce_flutter/src/presentation/utils/BlocFormItem.dart';
@@ -7,7 +11,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ClientAddressCreateBloc extends Bloc<ClientAddressCreateEvent, ClientAddressCreateState> {
 
-  ClientAddressCreateBloc (): super(ClientAddressCreateState()) {
+  AddressUseCases addressUseCases;
+  AuthUseCases authUseCases;
+
+  ClientAddressCreateBloc (this.addressUseCases, this.authUseCases): super(ClientAddressCreateState()) {
     on<ClientAddressCreateInitEvent>(_onClientAddressCreateInitEvent);
     on<AddressChanged>(_onAddressChanged);
     on<NeighborhoodChanged>(_onNeighborhoodChanged);
@@ -17,12 +24,21 @@ class ClientAddressCreateBloc extends Bloc<ClientAddressCreateEvent, ClientAddre
   final formkey = GlobalKey<FormState>();
 
   Future<void> _onClientAddressCreateInitEvent(ClientAddressCreateInitEvent event, Emitter<ClientAddressCreateState> emit) async {
+    AuthResponse? authResponse = await authUseCases.getUSerSession.run();
     emit(
       state.copyWith(
         formKey: formkey
       )
     );
-  }
+    if (authResponse != null) {
+      emit(
+        state.copyWith(
+        formKey: formkey,
+        idUser: authResponse.user.id
+      )
+   );
+   }
+}
 
   Future<void> _onAddressChanged(AddressChanged event, Emitter<ClientAddressCreateState> emit) async {
     emit(
@@ -48,5 +64,19 @@ class ClientAddressCreateBloc extends Bloc<ClientAddressCreateEvent, ClientAddre
     );
   }
 
-   Future<void> _onFormSubmit(FormSubmit event, Emitter<ClientAddressCreateState> emit) async {}
+   Future<void> _onFormSubmit(FormSubmit event, Emitter<ClientAddressCreateState> emit) async {
+    emit(
+      state.copyWith(
+        response: Loading(),
+        formKey: formkey
+      )
+    );
+    Resource response = await addressUseCases.create.run(state.toAddress());
+    emit(
+      state.copyWith(
+        response: response,
+        formKey: formkey
+      )
+    );
+   }
 }

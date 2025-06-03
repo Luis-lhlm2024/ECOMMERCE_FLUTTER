@@ -3,20 +3,28 @@ import 'package:ecommerce_flutter/src/presentation/pages/auth/widgets/DefaultTex
 import 'package:ecommerce_flutter/src/presentation/pages/client/address/create/bloc/ClientAddressCreateBloc.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/client/address/create/bloc/ClientAddressCreateEvent.dart';
 import 'package:ecommerce_flutter/src/presentation/pages/client/address/create/bloc/ClientAddressCreateState.dart';
+import 'package:ecommerce_flutter/src/presentation/pages/client/address/create/bloc/ClientAddressCreateContent.dart';
 import 'package:ecommerce_flutter/src/presentation/utils/BlocFormItem.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ClientAddressCreateContent extends StatelessWidget {
-
+  
   ClientAddressCreateBloc? bloc;
   ClientAddressCreateState state;
 
-  ClientAddressCreateContent(this.bloc, this.state);
+  ClientAddressCreateContent({ 
+    super.key, 
+    required this.bloc, 
+    required this.state });
 
   @override
-  Widget build(BuildContext context) {
-    return Form(
-        key: state.formKey,      
+Widget build(BuildContext context) {
+  return BlocBuilder<ClientAddressCreateBloc, ClientAddressCreateState>(
+    bloc: bloc,
+    builder: (context, state) {
+      return Form(
+        key: state.formKey,
         child: Stack(
           alignment: Alignment.center,
           children: [
@@ -28,25 +36,57 @@ class ClientAddressCreateContent extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     _imageCategory(context),
-                    _cardCategoryForm(context)
+                    _cardCategoryForm(context),
                   ],
                 ),
               ),
             ),
-            //DefaultIconBack(left: 0, top: 0),
             Positioned(
               left: -33,
               top: -70,
-              child: DefaultIconBack(
-                left: 0,top: 0
-              ),
+              child: DefaultIconBack(left: 0, top: 0),
             ),
           ],
-        )
-    );
-  }
+        ),
+      );
+    },
+  );
+}
 
-  Widget _cardCategoryForm(BuildContext context){
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Form(
+  //       key: state.formKey,      
+  //       child: Stack(
+  //         alignment: Alignment.center,
+  //         children: [
+  //           _imageBackground(context),
+  //           SingleChildScrollView(
+  //             child: Container(
+  //               height: MediaQuery.of(context).size.height,
+  //               child: Column(
+  //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //                 children: [
+  //                   _imageCategory(context),
+  //                   _cardCategoryForm(context)
+  //                 ],
+  //               ),
+  //             ),
+  //           ),
+  //           //DefaultIconBack(left: 0, top: 0),
+  //           Positioned(
+  //             left: -33,
+  //             top: -70,
+  //             child: DefaultIconBack(
+  //               left: 0,top: 0
+  //             ),
+  //           ),
+  //         ],
+  //       )
+  //   );
+  // }
+
+  Widget _cardCategoryForm(BuildContext context){ 
     return Container(
       width: double.infinity,
       height: MediaQuery.of(context).size.height*0.44,
@@ -62,17 +102,16 @@ class ClientAddressCreateContent extends StatelessWidget {
         child: Column(
           children: [
             _textNewAddress(),
-            _textFieldAddress(),
-            _textFieldNeighborhood(),
-            _fabSubmit()
+            _textFieldAddress(state),
+            _textFieldNeighborhood(state),
+            _fabSubmit(state)
           ],
         ),
       ),
     );
-
   }
   
-  Widget _fabSubmit(){
+  Widget _fabSubmit(ClientAddressCreateState state){
     return Container(
       alignment: Alignment.centerRight,
       margin: EdgeInsets.only(top: 30),
@@ -104,7 +143,7 @@ class ClientAddressCreateContent extends StatelessWidget {
     );
   }
 
-  Widget _textFieldAddress(){
+  Widget _textFieldAddress(ClientAddressCreateState state){
     return DefaultTextField(
       label: 'Direccion', 
       icon: Icons.my_location, 
@@ -118,7 +157,7 @@ class ClientAddressCreateContent extends StatelessWidget {
     );
   }
 
-  Widget _textFieldNeighborhood(){
+  Widget _textFieldNeighborhood(ClientAddressCreateState state){
     return DefaultTextField(
       label: 'Barrio', 
       icon: Icons.list, 
