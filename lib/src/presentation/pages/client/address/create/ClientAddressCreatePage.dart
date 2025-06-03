@@ -40,8 +40,8 @@ class _ClientAddressCreatePageState extends State<ClientAddressCreatePage> {
       child: BlocBuilder<ClientAddressCreateBloc, ClientAddressCreateState>(
         builder: (context, state) {
           return ClientAddressCreateContent(
-            bloc: _bloc, 
-            state: state,
+            // bloc: _bloc, 
+            // state: state,
           );
         },
       ),

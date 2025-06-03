@@ -10,19 +10,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ClientAddressCreateContent extends StatelessWidget {
   
-  ClientAddressCreateBloc? bloc;
-  ClientAddressCreateState state;
+  // ClientAddressCreateBloc? bloc;
+  // ClientAddressCreateState state;
 
-  ClientAddressCreateContent({ 
-    super.key, 
-    required this.bloc, 
-    required this.state });
+  ClientAddressCreateContent({super.key});
 
-  @override
+  // ClientAddressCreateContent({ 
+  //   super.key, 
+  //   required this.bloc, 
+  //   required this.state });
+
+@override
 Widget build(BuildContext context) {
   return BlocBuilder<ClientAddressCreateBloc, ClientAddressCreateState>(
-    bloc: bloc,
     builder: (context, state) {
+      final bloc = context.read<ClientAddressCreateBloc>();
       return Form(
         key: state.formKey,
         child: Stack(
@@ -36,7 +38,7 @@ Widget build(BuildContext context) {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     _imageCategory(context),
-                    _cardCategoryForm(context),
+                    _cardCategoryForm(context, state, bloc)
                   ],
                 ),
               ),
@@ -86,7 +88,7 @@ Widget build(BuildContext context) {
   //   );
   // }
 
-  Widget _cardCategoryForm(BuildContext context){ 
+  Widget _cardCategoryForm(BuildContext context, state, bloc){ 
     return Container(
       width: double.infinity,
       height: MediaQuery.of(context).size.height*0.44,
@@ -102,23 +104,23 @@ Widget build(BuildContext context) {
         child: Column(
           children: [
             _textNewAddress(),
-            _textFieldAddress(state),
-            _textFieldNeighborhood(state),
-            _fabSubmit(state)
+            _textFieldAddress(state, bloc),
+            _textFieldNeighborhood(state, bloc),
+            _fabSubmit(state, bloc)
           ],
         ),
       ),
     );
   }
   
-  Widget _fabSubmit(ClientAddressCreateState state){
+  Widget _fabSubmit(ClientAddressCreateState state, ClientAddressCreateBloc bloc){
     return Container(
       alignment: Alignment.centerRight,
       margin: EdgeInsets.only(top: 30),
       child: FloatingActionButton(
         onPressed: (){
           if (state.formKey!.currentState!.validate()){
-            bloc?.add(FormSubmit());
+            bloc.add(FormSubmit());
           }
         },
         backgroundColor: Colors.black,
@@ -143,7 +145,7 @@ Widget build(BuildContext context) {
     );
   }
 
-  Widget _textFieldAddress(ClientAddressCreateState state){
+  Widget _textFieldAddress(ClientAddressCreateState state, ClientAddressCreateBloc bloc){
     return DefaultTextField(
       label: 'Direccion', 
       icon: Icons.my_location, 
@@ -157,7 +159,7 @@ Widget build(BuildContext context) {
     );
   }
 
-  Widget _textFieldNeighborhood(ClientAddressCreateState state){
+  Widget _textFieldNeighborhood(ClientAddressCreateState state, ClientAddressCreateBloc bloc){
     return DefaultTextField(
       label: 'Barrio', 
       icon: Icons.list, 
